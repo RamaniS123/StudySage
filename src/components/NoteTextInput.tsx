@@ -1,9 +1,10 @@
 "use client";
+
 import { useSearchParams } from "next/navigation";
 import { Textarea } from "./ui/textarea";
 import { ChangeEvent, useEffect } from "react";
-import { debounceTimeout } from "@/lib/constants";
 import useNote from "@/hooks/useNote";
+import { updateNoteAction } from "@/actions/notes";
 
 type Props = {
   noteId: string;
@@ -30,7 +31,7 @@ function NoteTextInput({ noteId, startingNoteText }: Props) {
     clearTimeout(updateTimeout);
     updateTimeout = setTimeout(() => {
       updateNoteAction(noteId, text);
-    }, debounceTimeout);
+    }, 1500);
   };
 
   return (
@@ -44,6 +45,3 @@ function NoteTextInput({ noteId, startingNoteText }: Props) {
 }
 
 export default NoteTextInput;
-function updateNoteAction(noteId: string, text: string) {
-  throw new Error("Function not implemented.");
-}
