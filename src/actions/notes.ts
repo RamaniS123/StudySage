@@ -40,3 +40,19 @@ export const updateNoteAction = async (notedId: string, text: string) => {
     return handleError(error); 
   }
 }; 
+
+export const deleteNoteAction = async (notedId: string) => { 
+  try { 
+    const user = await getUser(); 
+    if (!user) throw new Error("You must be logged in to delete a note"); 
+
+    await prisma.note.delete({ 
+      where: { id: notedId, authorId: user.id},
+    }); 
+
+    return { errorMessage: null}; 
+    
+  } catch (error) { 
+    return handleError(error); 
+  }
+}; 
