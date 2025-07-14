@@ -1,7 +1,7 @@
 "use client";
 
 import { useContext } from "react";
-import { NoteProviderContext } from "../../providers/NoteProvider";
+import { NoteProviderContext } from "../providers/NoteProvider";
 
 function useNote() {
   const context = useContext(NoteProviderContext);

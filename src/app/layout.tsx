@@ -1,11 +1,11 @@
 import type { Metadata } from "next";
 import "@/styles/globals.css";
-import { ThemeProvider } from "../../providers/ThemeProvider";
+import { ThemeProvider } from "../providers/ThemeProvider";
 import { Toaster } from "@/components/ui/sonner";
 import Header from "@/components/header";
 import { SidebarProvider } from "@/components/ui/sidebar";
 import AppSidebar from "@/components/AppSidebar";
-import NoteProvider from "../../providers/NoteProvider";
+import NoteProvider from "../providers/NoteProvider";
 
 export const metadata: Metadata = {
   title: "StudySage",
