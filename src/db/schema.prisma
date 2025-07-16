@@ -29,7 +29,7 @@ model Quiz {
   title     String
   noteId    String
   authorId  String
-  question  QuizQuestion[]
+  questions QuizQuestion[]
   createdAt DateTime       @default(now())
 }
 
