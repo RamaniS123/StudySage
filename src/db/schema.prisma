@@ -23,3 +23,21 @@ model User {
   createdAt DateTime @default(now())
   updatedAt DateTime @default(now()) @updatedAt
 }
+
+model Quiz {
+  id        String         @id @default(uuid())
+  title     String
+  noteId    String
+  authorId  String
+  question  QuizQuestion[]
+  createdAt DateTime       @default(now())
+}
+
+model QuizQuestion {
+  id       String   @id @default(uuid())
+  quizId   String
+  quiz     Quiz     @relation(fields: [quizId], references: [id])
+  question String
+  options  String[]
+  answer   String
+}
