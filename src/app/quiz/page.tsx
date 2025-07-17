@@ -1,45 +1,38 @@
-import { prisma } from "@/db/prisma";
-import { notFound } from "next/navigation";
+"use client";
+
+import { useEffect, useState } from "react";
+import RenderQuiz from "@/components/RenderQuiz";
 
 type Props = {
   searchParams: { [key: string]: string | string[] | undefined };
 };
 
-export default async function Quizpage({ searchParams }: Props) {
-  const quizId = Array.isArray(searchParams.quizId)
-    ? searchParams.quizId[0]
-    : searchParams.quizId;
+export default function QuizPage({ searchParams }: Props) {
+  const [quiz, setQuiz] = useState<any>(null);
 
-  if (!quizId) {
-    return notFound();
-  }
+  useEffect(() => {
+    const quizId = Array.isArray(searchParams.quizId)
+      ? searchParams.quizId[0]
+      : searchParams.quizId;
 
-  const quiz = await prisma.quiz.findUnique({
-    where: { id: quizId },
-    include: { questions: true },
-  });
+    if (!quizId) return;
 
-  if (!quiz) {
-    return notFound();
-  }
+    const fetchQuiz = async () => {
+      const res = await fetch(`/api/get-quiz?quizId=${quizId}`);
+      const data = await res.json();
+      setQuiz(data);
+    };
+
+    fetchQuiz();
+  }, [searchParams.quizId]);
+
+  if (!quiz) return <p className="p-4">Loading...</p>;
 
   return (
-    <div className="mx-auto max-w-4xl p-4">
-      <h1 className="mb-4 text-2xl font-bold">{quiz.title}</h1>
-      {quiz.questions.map((q, idx) => (
-        <div key={q.id} className="mb-6">
-          <p className="font-semibold">
-            {idx + 1}. {q.question}
-          </p>
-          <ul className="mt-2 space-y-1 pl-4">
-            {q.options.map((opt, optIdx) => (
-              <li key={optIdx} className="rounded border px-2 py-1">
-                {opt}
-              </li>
-            ))}
-          </ul>
-        </div>
-      ))}
-    </div>
+    <RenderQuiz
+      title={quiz.title}
+      questions={quiz.questions}
+      quizId={quiz.id}
+    />
   );
 }

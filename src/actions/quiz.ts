@@ -34,6 +34,11 @@ export async function generateQuizAction(noteId: string, noteText: string) {
 
       const quizJSON = JSON.parse(response.choices[0].message.content || "[]"); 
 
+      quizJSON.forEach((q: any) => { 
+        const answerLetter = q.answer; 
+        const answerIndex = ["A", "B", "C", "D"].indexOf(answerLetter); 
+        q.answer = q.options[answerIndex]; 
+      }); 
       const quiz = await prisma.quiz.create({ 
         data: { 
           title: `Quiz for Note: ${noteText.slice(0, 30)}...`,
@@ -51,6 +56,8 @@ export async function generateQuizAction(noteId: string, noteText: string) {
 
       return {success: true, quizId: quiz.id}
   } catch (error) { 
+    console.error("Quiz generation error:", error);
     return handleError(error); 
+    
   }
 }
