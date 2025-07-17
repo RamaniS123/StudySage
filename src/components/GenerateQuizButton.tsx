@@ -21,7 +21,7 @@ export default function GenerateQuizButton({ noteId, noteText }: Props) {
 
       if ("quizId" in res) {
         toast.success("Quiz generated! Redirecting...");
-        router.push(`/quiz/${res.quizId}`);
+        router.push(`/quiz?quizId=${res.quizId}`);
       } else {
         toast.error("Quiz generation failed. Please try again.");
       }

@@ -36,7 +36,7 @@ export async function generateQuizAction(noteId: string, noteText: string) {
 
       const quiz = await prisma.quiz.create({ 
         data: { 
-          title: "Untitle Quiz", 
+          title: `Quiz for Note: ${noteText.slice(0, 30)}...`,
           authorId: user.id, 
           noteId, 
           questions: { 
