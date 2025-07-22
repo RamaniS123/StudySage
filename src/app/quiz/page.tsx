@@ -1,21 +1,18 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useSearchParams } from "next/navigation";
 import RenderQuiz from "@/components/RenderQuiz";
 
-type Props = {
-  searchParams: { [key: string]: string | string[] | undefined };
-};
-
-export default function QuizPage({ searchParams }: Props) {
+export default function QuizPage() {
   const [quiz, setQuiz] = useState<any>(null);
+  const searchParams = useSearchParams();
+  const quizId = searchParams.get("quizId");
 
   useEffect(() => {
-    const quizId = Array.isArray(searchParams.quizId)
-      ? searchParams.quizId[0]
-      : searchParams.quizId;
-
-    if (!quizId) return;
+    if (!quizId) {
+      return;
+    }
 
     const fetchQuiz = async () => {
       const res = await fetch(`/api/get-quiz?quizId=${quizId}`);
@@ -24,7 +21,7 @@ export default function QuizPage({ searchParams }: Props) {
     };
 
     fetchQuiz();
-  }, [searchParams.quizId]);
+  }, [quizId]);
 
   if (!quiz) return <p className="p-4">Loading...</p>;
 
