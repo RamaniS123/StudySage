@@ -43,7 +43,7 @@ export default function ClientHome({ user }: Props) {
   return (
     <div className="flex h-full flex-col items-center gap-4">
       <div className="flex w-full max-w-4xl justify-end gap-2">
-        <AskAIButton user={user} />
+        <AskAIButton user={user} noteId={noteId} />
         <GenerateQuizButton noteId={noteId} noteText={noteText || ""} />
         <NewNoteButton user={user} />
       </div>
