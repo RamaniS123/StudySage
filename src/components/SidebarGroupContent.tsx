@@ -44,11 +44,11 @@ function SidebarGroupContent({ notes }: Props) {
 
   return (
     <SidebarGroupContentShadCN>
-      <div className="relateive flex items-center">
-        <SearchIcon className="absoulte left-2 size-4" />
+      <div className="relative w-full max-w-sm">
+        <SearchIcon className="text-muted-foreground absolute top-1/2 left-3 size-4 -translate-y-1/2" />
 
         <Input
-          className="bg-muted pl-8"
+          className="h-9 pl-10 text-sm"
           placeholder="Search for your notes..."
           value={searchText}
           onChange={(e) => setSearchText(e.target.value)}
