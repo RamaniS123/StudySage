@@ -18,7 +18,7 @@ export async function generateQuizAction(noteId: string, noteText: string) {
         noteId, 
         authorId: user.id,
         questions: {
-          some: {}, // ✅ Ensure there’s at least one question
+          some: {}, 
         },
       },
     }); 
