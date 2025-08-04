@@ -29,7 +29,11 @@ export default function GenerateQuizButton({ noteId, noteText }: Props) {
   };
 
   return (
-    <Button onClick={handleGenerate} disabled={isPending || !noteText.trim()}>
+    <Button
+      onClick={handleGenerate}
+      disabled={isPending || !noteText.trim()}
+      variant="secondary"
+    >
       {isPending ? "Generating..." : "Generate Quiz"}
     </Button>
   );

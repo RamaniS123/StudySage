@@ -37,7 +37,7 @@ async function AppSidebar() {
                 <Link href="/login" className="underline">
                   Login
                 </Link>{" "}
-                to see your notes
+                Login to see your notes
               </p>
             )}
           </SidebarGroupLabel>
