@@ -1,13 +1,11 @@
-// middleware.ts
 import { NextResponse, type NextRequest } from "next/server";
 import { createServerClient } from "@supabase/ssr";
 
 export const config = {
   matcher: [
-  
     '/((?!_next/static|_next/image|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)',
   ],
-}; 
+};
 
 export async function middleware(request: NextRequest) {
   const response = NextResponse.next();
@@ -27,10 +25,12 @@ export async function middleware(request: NextRequest) {
     }
   );
 
-  const { data: { user } } = await supabase.auth.getUser();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
 
   const pathname = request.nextUrl.pathname;
-  const isAuthPage = pathname === "/login" || pathname === "/signup";
+  const isAuthPage = ["/login", "/sign-up"].includes(pathname); // <-- FIXED
 
   if (!user && !isAuthPage) {
     return NextResponse.redirect(new URL("/login", request.url));
