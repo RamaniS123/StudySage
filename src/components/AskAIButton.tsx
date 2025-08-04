@@ -23,7 +23,7 @@ type Props = {
   user: User | null;
   noteId: string;
 };
-
+// Ask AI functionality
 function AskAIButton({ user, noteId }: Props) {
   const router = useRouter();
 
