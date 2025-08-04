@@ -4,7 +4,7 @@ StudySage is an AI-powered note-taking web application built to help students st
 
 # Visit the site
 
-Feel free to checkout [this project](https://study-sage-dqvb.vercel.app) is an AI-powered note-taking web application built to help students study more effectively...
+Feel free to checkout [this project](https://study-sage-dqvb.vercel.app)! 
 
 <img width="1601" height="1041" alt="image" src="https://github.com/user-attachments/assets/2564bd31-e3a4-47d5-8aee-59a6f16a7fe5" />
 
