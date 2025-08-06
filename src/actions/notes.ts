@@ -2,29 +2,30 @@
 
 import { getUser } from "@/auth/server";
 import { prisma } from "@/db/prisma";
+import { ensureUserExists } from "@/lib/ensureUserExists";
 import { handleError } from "@/lib/utils";
 import openai from "@/openai";
 import { ChatCompletionMessageParam } from "openai/resources/index.mjs"; 
 
-export const createNoteAction = async (notedId: string) => { 
-  try { 
-    const user = await getUser(); 
-    if (!user) throw new Error("You must be logged in to create a note"); 
+export const createNoteAction = async (notedId: string, title: string) => {
+  try {
+    const user = await ensureUserExists();
+    if (!user) throw new Error("You must be logged in to create a note");
 
-    await prisma.note.create({ 
+    await prisma.note.create({
       data: {
-        id: notedId, 
-        authorId: user.id, 
+        id: notedId,
+        authorId: user.id,
+        title: title || "Untitled Note",
         text: "",
       },
-    }); 
+    });
 
-    return { errorMessage: null}; 
-    
-  } catch (error) { 
-    return handleError(error); 
+    return { errorMessage: null };
+  } catch (error) {
+    return handleError(error);
   }
-}; 
+};
 
 export const updateNoteAction = async (notedId: string, text: string) => { 
   try { 

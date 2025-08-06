@@ -1,6 +1,6 @@
 "use client";
 
-import { createContext, useState } from "react";
+import { createContext, useState, useEffect } from "react";
 
 type NoteProviderContextType = {
   noteText: string;
@@ -12,8 +12,18 @@ export const NoteProviderContext = createContext<NoteProviderContextType>({
   setNoteText: () => {},
 });
 
-function NoteProvider({ children }: { children: React.ReactNode }) {
-  const [noteText, setNoteText] = useState("");
+type Props = {
+  children: React.ReactNode;
+  initialNoteText: string;
+  noteId: string;
+};
+
+function NoteProvider({ children, initialNoteText, noteId }: Props) {
+  const [noteText, setNoteText] = useState(initialNoteText || "");
+
+  useEffect(() => {
+    setNoteText(initialNoteText || "");
+  }, [noteId, initialNoteText]);
 
   return (
     <NoteProviderContext.Provider value={{ noteText, setNoteText }}>

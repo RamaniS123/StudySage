@@ -42,13 +42,13 @@ export default function RenderQuiz({
                   setSelectedAnswers((prev) => ({ ...prev, [q.id]: opt }))
                 }
                 className={`cursor-pointer rounded border px-2 py-1 ${
-                  selectedAnswers[q.id] === opt ? "bg-blue-100" : ""
+                  selectedAnswers[q.id] === opt ? "bg-blue-400" : ""
                 } ${
                   submitted
                     ? opt === q.answer
-                      ? "bg-green-200"
+                      ? "bg-green-400"
                       : selectedAnswers[q.id] === opt
-                        ? "bg-red-200"
+                        ? "bg-red-400"
                         : ""
                     : ""
                 }`}
@@ -63,7 +63,7 @@ export default function RenderQuiz({
       {!submitted ? (
         <button
           onClick={handleSubmit}
-          className="bg-primary mt-4 rounded px-4 py-2 text-white"
+          className="hover:bg-primary-800 mt-4 rounded bg-blue-400 px-4 py-2 text-white transition"
         >
           Submit Quiz
         </button>

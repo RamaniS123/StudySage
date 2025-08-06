@@ -41,7 +41,14 @@ async function AppSidebar() {
               </p>
             )}
           </SidebarGroupLabel>
-          {user && <SidebarGroupContent notes={notes} />}
+          {user && notes?.length > 0 && (
+            <SidebarGroupContent
+              notes={notes.map((note) => ({
+                ...note,
+                text: note.text || "", // ✅ ensures no undefined text
+              }))}
+            />
+          )}
         </SidebarGroup>
       </SidebarContent>
     </Sidebar>

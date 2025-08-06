@@ -28,12 +28,23 @@ function AskAIButton({ user, noteId }: Props) {
   const router = useRouter();
 
   const [isPending, startTransition] = useTransition();
-
   const [open, setOpen] = useState(false);
   const [questionText, setQuestionText] = useState("");
   const [questions, setQuestions] = useState<string[]>([]);
   const [responses, setResponses] = useState<string[]>([]);
   const { noteText } = useContext(NoteProviderContext);
+
+  const textareaRef = useRef<HTMLTextAreaElement>(null);
+  const contentRef = useRef<HTMLDivElement>(null);
+
+  // If no noteId, render disabled button
+  if (!noteId) {
+    return (
+      <Button variant="secondary" disabled>
+        Ask AI
+      </Button>
+    );
+  }
 
   const handleOnOpenChange = (isOpen: boolean) => {
     if (!user) {
@@ -47,9 +58,6 @@ function AskAIButton({ user, noteId }: Props) {
       setOpen(isOpen);
     }
   };
-
-  const textareaRef = useRef<HTMLTextAreaElement>(null);
-  const contentRef = useRef<HTMLDivElement>(null);
 
   const handleInput = () => {
     const textarea = textareaRef.current;
@@ -102,7 +110,9 @@ function AskAIButton({ user, noteId }: Props) {
     <Dialog open={open} onOpenChange={handleOnOpenChange}>
       <form>
         <DialogTrigger asChild>
-          <Button variant="secondary">Ask AI</Button>
+          <Button variant="secondary" disabled={!noteText?.trim()}>
+            Ask AI
+          </Button>
         </DialogTrigger>
         <DialogContent
           className="custom-scrollbar flex h-[85vh] max-w-4xl flex-col overflow-y-auto"

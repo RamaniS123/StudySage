@@ -1,50 +1,77 @@
 "use client";
 
-import { User } from "@supabase/supabase-js";
-import { Button } from "./ui/button";
-import { Loader2 } from "lucide-react";
-import { useState } from "react";
+import { useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
 import { v4 as uuidv4 } from "uuid";
-import { toast } from "sonner";
 import { createNoteAction } from "@/actions/notes";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+import { DialogClose } from "@radix-ui/react-dialog";
 
 type Props = {
-  user: User | null;
+  user: {
+    id: string;
+  } | null;
 };
 
-function NewNoteButton({ user }: Props) {
+export default function NewNoteButton({ user }: Props) {
   const router = useRouter();
+  const [isPending, startTransition] = useTransition();
+  const [title, setTitle] = useState("");
+  const [open, setOpen] = useState(false);
 
-  const [loading, setLoading] = useState(false);
+  const handleCreate = async () => {
+    const newNoteId = uuidv4();
+    startTransition(async () => {
+      const { errorMessage } = await createNoteAction(
+        newNoteId,
+        title || "Untitled Note",
+      );
 
-  const handleClickNewNoteButton = async () => {
-    if (!user) {
-      router.push("/login");
-    } else {
-      setLoading(true);
-      const uuid = uuidv4();
+      if (errorMessage) {
+        console.error("Failed to create note:", errorMessage);
+        return;
+      }
 
-      await createNoteAction(uuid);
-      router.push(`/?noteId=${uuid}`);
-
-      toast.success("New Note Created", {
-        description: "You have created a new note",
-      });
-      setLoading(false);
-    }
+      setOpen(false);
+      router.push(`/?noteId=${newNoteId}`);
+    });
   };
 
   return (
-    <Button
-      onClick={handleClickNewNoteButton}
-      variant="secondary"
-      className="w-24"
-      disabled={loading}
-    >
-      {loading ? <Loader2 className="animate-spin" /> : "New Note"}
-    </Button>
+    <Dialog open={open} onOpenChange={setOpen}>
+      <DialogTrigger asChild>
+        <Button variant="secondary">New Note</Button>
+      </DialogTrigger>
+      <DialogContent className="sm:max-w-md">
+        <DialogHeader>
+          <DialogTitle>New Note</DialogTitle>
+          <DialogDescription>
+            Enter a title for your new note.
+          </DialogDescription>
+        </DialogHeader>
+        <Input
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
+          placeholder="e.g. Meeting Notes"
+        />
+        <div className="mt-4 flex justify-end gap-2">
+          <DialogClose asChild>
+            <Button variant="ghost">Cancel</Button>
+          </DialogClose>
+          <Button onClick={handleCreate} disabled={isPending}>
+            {isPending ? "Creating..." : "Create"}
+          </Button>
+        </div>
+      </DialogContent>
+    </Dialog>
   );
 }
-
-export default NewNoteButton;
