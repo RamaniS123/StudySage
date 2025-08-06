@@ -46,9 +46,9 @@ export default function RenderQuiz({
                 } ${
                   submitted
                     ? opt === q.answer
-                      ? "bg-green-400"
+                      ? "bg-green-600"
                       : selectedAnswers[q.id] === opt
-                        ? "bg-red-400"
+                        ? "bg-red-600"
                         : ""
                     : ""
                 }`}

@@ -3,8 +3,7 @@ import { prisma } from "@/db/prisma";
 
 export const ensureUserExists = async () => {
   const user = await getUser();
-  console.log("AUTH USER:", user); // 👈 Add this
-
+  console.log("AUTH USER:", user); 
   if (!user) return null;
 
   const existingUser = await prisma.user.findFirst({
@@ -16,9 +15,9 @@ export const ensureUserExists = async () => {
     },
   });
 
-  console.log("PRISMA USER FOUND:", existingUser); // 👈 Add this
+  console.log("PRISMA USER FOUND:", existingUser); 
 
-  if (existingUser) return user;
+  if (existingUser) return existingUser;
 
   const created = await prisma.user.create({
     data: {
@@ -27,7 +26,6 @@ export const ensureUserExists = async () => {
     },
   });
 
-  console.log("PRISMA USER CREATED:", created); // 👈 Add this
-
-  return user;
+  console.log("PRISMA USER CREATED:", created);
+  return created;
 };
