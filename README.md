@@ -22,7 +22,9 @@ Feel free to checkout [this project!](https://study-sage-dqvb.vercel.app)
 • Modern Stack – Built with Next.js App Router, React, Prisma, Supabase, and OpenAI
 
 # Demo
+### Sign Up: 
 
+![Login](https://i.imgur.com/N5osyP1.gif)
 
 
 # Prerequisites 
