@@ -26,6 +26,38 @@ Feel free to checkout [this project!](https://study-sage-eta.vercel.app/sign-up)
 
 ![Login](https://i.imgur.com/N5osyP1.gif)
 
+### Create Note: 
+![Create Note](https://i.imgur.com/5YaVFsO.gif)
+
+### Ask AI: 
+![Ask AI](https://i.imgur.com/FFimksr.gif)
+
+### Generate Quiz: 
+![Generate Quiz](https://i.imgur.com/DOwWr21.gif)
+
+### Toggle Theme: 
+![Toggle Theme](https://i.imgur.com/VAHsF1v.gif)
+
+### Logout: 
+![Logout](https://i.imgur.com/Y10PKw5.gif)
+
+# What I Learned
+
+• How to integrate OpenAI into a real-world Next.js app  
+
+• Authentication & session management with Supabase  
+
+• How to use Prisma as an ORM for Supabase Postgres  
+
+• Creating full CRUD functionality (Create, Read, Update, Delete) for user notes
+
+• Working with API routes and server actions to handle database operations  
+
+• Handling client-server communication using `fetch`, `useEffect`, and API endpoints  
+
+• Building clean UI with Tailwind CSS + shadcn/ui components  
+
+• Deploying full-stack apps on Vercel
 
 # Prerequisites 
 Before running this project locally, ensure you have the following installed:
@@ -66,16 +98,4 @@ Before running this project locally, ensure you have the following installed:
 </code> </pre>
 
 6. Access the app at: http://localhost:3001
-   
-# What I Learned
-
-• How to integrate OpenAI into a real-world Next.js app
-
-• Authentication & session management with Supabase
-
-• How to use Prisma as an ORM for Supabase Postgres
-
-• Building clean UI with Tailwind + shadcn
-
-• Deploying full-stack apps on Vercel
 
